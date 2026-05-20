@@ -7,9 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/customer', proxy('http://localhost:8001'))
-app.use('/shopping', proxy('http://localhost:8003'))
-app.use('/', proxy('http://localhost:8002' ))
+const proxyWithBase = (basePath, target) =>
+	proxy(target, {
+		proxyReqPathResolver: (req) => `${basePath}${req.url}`,
+	});
+
+app.use('/customer', proxyWithBase('/customer', 'http://localhost:8001'));
+app.use('/shopping', proxyWithBase('/shopping', 'http://localhost:8003'));
+app.use('/', proxy('http://localhost:8002' ));
 
 
 app.listen(8000,()=>{              
