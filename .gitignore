@@ -11,6 +11,15 @@ pnpm-debug.log*
 .env
 .env.*
 
+# Docker
+docker-compose.override.yml
+docker-compose.*.local.yml
+docker-compose.local.yml
+docker-compose.dev.yml
+docker-compose.prod.yml
+.docker/
+db/
+
 # OS
 .DS_Store
 Thumbs.db

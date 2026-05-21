@@ -140,9 +140,11 @@ class CustomerService {
 
     async SubscribeEvents(payload) {
 
-        const { event, data } = payload;
+        const parsedPayload = typeof payload === 'string' ? JSON.parse(payload) : payload;
 
-        const { userId, product, order, qty } = data;
+        const { event, data } = parsedPayload || {};
+
+        const { userId, product, order, qty } = data || {};
 
         try {
             switch (event) {
@@ -160,7 +162,7 @@ class CustomerService {
                     await this.ManageOrder(userId, order);
                     break;
                 case 'TEST':
-                    console.log(payload);
+                    console.log(parsedPayload);
                     break;
                 default:
                     break;
