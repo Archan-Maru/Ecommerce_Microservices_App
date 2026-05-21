@@ -1,16 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose=require('mongoose');
 
-const Schema = mongoose.Schema;
+const Schema=mongoose.Schema;
 
-const OrderSchema = new Schema({
-    orderId: String,
-    customerId: String,
-    amount: Number,
-    status: String,
-    txnId: String,
-    items: [
-        {   
-             product: {
+const CartSchema=new Schema({
+
+    customerId:{type:String},
+    items:[
+        {
+            product: {
                 _id: { type: String, require: true },
                 name: { type: String },
                 banner: { type: String },
@@ -22,8 +19,8 @@ const OrderSchema = new Schema({
             unit: { type: Number, require: true }
         }
     ]
-},
-{
+
+},{
     toJSON: {
         transform(doc, ret){
             delete ret.__v;
@@ -32,4 +29,4 @@ const OrderSchema = new Schema({
     timestamps: true
 });
 
-module.exports =  mongoose.model('order', OrderSchema);
+module.exports=mongoose.model('cart',CartSchema);
